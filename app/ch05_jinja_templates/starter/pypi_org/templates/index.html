@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>python package inded DEMO</title>
+</head>
+<body>
+<h1>Python packages index</h1>
+<h2>get them packages yo</h2>
+{% for p in packages%}
+<div>
+    <span class="title">
+        {{p.name}}
+    </span>
+    <span class="version">
+        {{p.version}}
+    </span>
+    <span>
+        <a href="/"> {{p.name.upper()}}</a>
+    </span>
+</div>
+{% endfor%}
+</body>
+</html>
