@@ -73,7 +73,7 @@ start a project as Flask
 Can select debug mode and other stuff by dropdown menu in upper right
 run development server to run app locally
 
-## Jinja templates
+## CH05 Jinja templates
 Python style logic with some particular syntax.
 Renders to HTML as you would expect
 Loops are written via {% for %} blocks. As are if. Correspongiding endif.
@@ -84,4 +84,10 @@ Autocmpletion of html in jinja templates:
 - span.title TAB expands to make a class called title within a span
 You can call Python functions on the stuff in jinja templates. e.g. like upper() for strings
 
+to get jinja autocompletion in PyCharm: file >> settings >> languages and frameworks >> template languages >> drop down list "jinja2"
 
+### Bootstrap
+this is pulled into the app via one line in header and 3 \<script lines down the bottom
+
+### CSS
+padding done for main here
