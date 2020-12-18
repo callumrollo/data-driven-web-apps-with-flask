@@ -72,6 +72,7 @@ Make a requirements file
 start a project as Flask
 Can select debug mode and other stuff by dropdown menu in upper right
 run development server to run app locally
+if you click the link Pycharm provides, CSS is a mess. I don't know why. Just type it directly in browser
 
 ## CH05 Jinja templates
 Python style logic with some particular syntax.
@@ -87,7 +88,28 @@ You can call Python functions on the stuff in jinja templates. e.g. like upper()
 to get jinja autocompletion in PyCharm: file >> settings >> languages and frameworks >> template languages >> drop down list "jinja2"
 
 ### Bootstrap
-this is pulled into the app via one line in header and 3 \<script lines down the bottom
+this is pulled into the app via one line in header and 3 script lines down the bottom
 
 ### CSS
 padding done for main here
+make sure to use semi colons
+
+### creating a common layout page
+use a layout template with {% block %} to make holes for content. Content pages just contain the html to fill those holes
+The baselayout file is for common stuff like HTML header, css, nav. Has several blocks for optional additions
+blocks are optional! So can put in several with little cost
+A content file that uses a layout starts with the key extend line, followed by however many optional blocks
+If only one of these pages will use a particular resourse (like angluar JS) put that in the content file, not the base layout file. The blocks can contain imports as well as content
+
+### response for a better render template
+
+Some complex shit in infrastructure 
+Function has some logic on what to do if your view returns a dict or a response when calling a template
+This seems a bit overkill, but with more complicated views that may have many return lines, this makes for cleaner code 
+So your functions in the main app just need to return data, not render templates
+
+## Ch06 Routing and URLs
+
+Important to have clean well organised urls. Think of them as a command line interface to your page, Also important for SEO (yuck)
+Routing maps a url from a browser, to a view defined by your flask app logic. e.g. /about or packages/mysql
+Flask will pass arguments from the url as varibales into your function
