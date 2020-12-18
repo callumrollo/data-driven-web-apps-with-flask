@@ -10,3 +10,8 @@ blueprint = flask.Blueprint('packages', __name__, template_folder='templates')
 def package_details(package_name: str):
     return "Package details for {}".format(package_name)
     # return flask.render_template('home/index.html', packages=test_packages)
+
+@blueprint.route('/<int:rank>')
+def popular(rank: int):
+    return "Package details for {}th most popular packages".format(rank)
+    # return flask.render_template('home/index.html', packages=test_packages)
