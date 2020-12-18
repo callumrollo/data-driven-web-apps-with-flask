@@ -113,3 +113,34 @@ So your functions in the main app just need to return data, not render templates
 Important to have clean well organised urls. Think of them as a command line interface to your page, Also important for SEO (yuck)
 Routing maps a url from a browser, to a view defined by your flask app logic. e.g. /about or packages/mysql
 Flask will pass arguments from the url as varibales into your function
+
+### Blueprints
+
+We put these in views
+
+Mostly they help by keeping bloat and detail out of app.py
+
+views/package_views contains first intereseting stuff. This will generate a page for an url that specifies any package name
+
+Views (Python) mirrors templates (jinja html) in layout and content
+
+When creating a blueprint, you can make it active only on certain inputs (e.g. integers) by making the route int:<varname>
+
+Routing lets you make different fucntions for different html methods. e.g. one function for GET and another for POST so you can serve a form to users and recieve their input data. The route is the same, but method kwarg of blueprint.route is specified
+
+### Make a CMS
+super quick and easy. Quite neat that this can be included in a data driven app.
+
+To return a 404 page: flask.abort(404)
+
+Use type path in route to pass a full url path to the function
+
+After building this system that reads from a db, just need a simple system so users can enter details in markdown 
+
+## CH07 frontend frameworks CSS and bootstrap
+
+Bootstrap probs most popular frontend. So lots of demos and themes
+Semantic UI is also v popular. Empahsises clean
+Foundation is popular for professional designers. Bit more effort required
+materialise
+
