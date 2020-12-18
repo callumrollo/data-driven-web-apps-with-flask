@@ -144,3 +144,17 @@ Semantic UI is also v popular. Empahsises clean
 Foundation is popular for professional designers. Bit more effort required
 materialise
 
+### Bootstrap basics
+Option 1: link to a CDN. No good for offline development though. Also external depenency
+Option 2: npn install it. Keeps it simple
+
+The basic is to link in the header to a CSS file from bootstrap. This is the CDN method.
+
+Working on web stuff is hard bc browsers are inconsistent
+
+If you don't explicitly set a style, the browser will do it. This can screw stuff up
+Reset CSS combats this by explicitly setting everything, resolving many of these issues. THis is included in bootstrap
+
+Grid layout is smart. Will compress three column apeareance into one on phones, or on shrinking, shuffles buttons. This is all part of bootstrap responsive layout. It's a bootstrap thing.
+In firefox: web developer >> responsive design mode, you can test how the site looks on various devices
+
