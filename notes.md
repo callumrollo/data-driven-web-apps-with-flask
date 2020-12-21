@@ -158,3 +158,35 @@ Reset CSS combats this by explicitly setting everything, resolving many of these
 Grid layout is smart. Will compress three column apeareance into one on phones, or on shrinking, shuffles buttons. This is all part of bootstrap responsive layout. It's a bootstrap thing.
 In firefox: web developer >> responsive design mode, you can test how the site looks on various devices
 
+### Adding a grid
+top level is a div container
+then a bunch of div rows
+each of these has columns
+12 cols per line
+Can break them up to e.g. 3 cols of width 4
+md means medium: wrap when you get to medium size stuff. small will hang on to its grid a little longer as you shrink your browser window these have specific pixel size defs you can find
+`div.container>div.row>div.col-md-4*3` then tab will aoutocomplete in pycharm
+
+### Buttons and forms
+some more html and CSS. Uses button class to apply bootstrap stlying
+`    <button type="submit" class="btn btn-primary">Login</button>`
+This class can also be applied to hyperlinks
+
+### Syling the login
+all done in the style section at top of body. V simple
+You can set things to align and center automatically. Use padding to push stuff around if not quite right
+bootstrap is "mobile first" so stuff can look real bad in wide screen unless contrained with e.g. max-width
+clicking the color icon in the gutter in pycharm lets you pick a color
+bootstrap class form-control applied to input boxes with have them fill out pleasingly
+links as buttons look super nice. have siz button types and a plain link option
+
+### Themes
+
+Major benefit of bootstrap. so many themes! Loadsa free sites for this
+startbootstrap.com for free themes
+creative looks very nice
+stylish-portfolio also good. BoldQ
+unplash.com is great for free photos and graphics
+sb-admin good for a dashboard
+simple-sidebar is nice
+also has a site for paid ones here. Cost around 20-30 dollars
