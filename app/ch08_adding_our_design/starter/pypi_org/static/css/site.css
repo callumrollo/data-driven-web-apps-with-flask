@@ -4,6 +4,8 @@ body {
     padding: 0px;
     font-family: Source Sans Pro, Helvetica, Arial, sans-serif;
     font-size: 17px;
+    background-color: #003d61;
+
 }
 
 
@@ -14,6 +16,7 @@ body {
 .main_content {
     margin: 0px;
     padding: 0px;
+    background-color: white;
 }
 
 nav {
@@ -101,4 +104,14 @@ nav a {
 }
 
 
+footer {
+    background-color: #003d61;
+    margin-top: 50px;
+    padding: 30px;
+    text-align: center;
+    color: white;
+}
 
+footer a {
+    color: #2495f2;
+}

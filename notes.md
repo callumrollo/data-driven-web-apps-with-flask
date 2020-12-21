@@ -73,6 +73,7 @@ start a project as Flask
 Can select debug mode and other stuff by dropdown menu in upper right
 run development server to run app locally
 if you click the link Pycharm provides, CSS is a mess. I don't know why. Just type it directly in browser
+ctrl F5 in firefox to force refresh so things update 
 
 ## CH05 Jinja templates
 Python style logic with some particular syntax.
@@ -190,3 +191,23 @@ unplash.com is great for free photos and graphics
 sb-admin good for a dashboard
 simple-sidebar is nice
 also has a site for paid ones here. Cost around 20-30 dollars
+
+## CH07 Site design
+
+front page big text known as "hero section"
+using more tab complete functionality in the one
+
+### stats-slice
+Can access CSS subparts with a space e.g. .maincontent h1 for h1 headers in maincontent
+if it is a div in a div preface the term with a . e.g. main .main-item
+
+### Nav bar header
+bootstrap nav is very finicky and non-obvious
+just copy an example from the botstrap website!
+Fancy stuff in navbar makes it collapse and expand. Soem stuff added to make this work. Has an icon
+some more CSS at the end to make the expanding nav bar work
+
+### footer
+use an html footer tag for this
+make your footer background color the body background, then make main background white, this way get no black space under the header
+
