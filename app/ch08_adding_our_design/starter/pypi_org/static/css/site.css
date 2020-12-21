@@ -17,13 +17,14 @@ body {
 }
 
 nav {
-    background-color: #000;
-    padding: 10px;
-    font-size: 20px;
     color: white;
+    background-color: #3131e0;
+    padding: 10px;
+    font-size: 17px;
+    height: 85px;
 }
 
-nav > a {
+nav a {
     color: white;
     margin-right: 10px;
 }
