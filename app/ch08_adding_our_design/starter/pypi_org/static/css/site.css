@@ -18,3 +18,26 @@ nav > a {
     color: white;
     margin-right: 10px;
 }
+
+.hero {
+    padding: 50px 0;
+    text-align: center;
+    background-color: #3131e0;
+    color: white;
+    font-size: 14px;
+}
+
+.hero h1 {
+    font-size: 28px;
+}
+.hero a {
+    color: white;
+    text-decoration: underline;
+}
+
+.hero-inner {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    max-width: 500px;
+}
