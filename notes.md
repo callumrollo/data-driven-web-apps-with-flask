@@ -211,3 +211,98 @@ some more CSS at the end to make the expanding nav bar work
 use an html footer tag for this
 make your footer background color the body background, then make main background white, this way get no black space under the header
 
+## CH08 SQLAlchemy 
+Works with mySQL, SQLite, Postgres etc.
+V powerful and adaptable
+It's a full featured SQL abstraction
+Mature and fast
+A nice ORM we'll use in the course
+Works on a unit of work basis
+Can do eager loading to do one big query, rather than lots of little ones
+
+### Architecture
+Python can talk to many databases using a standard API
+SQLALchemy builds on this with schema/types, a query language and an engine.
+On top of this is an Object Relational Mapper (ORM) that you make with classes.
+
+### The database model
+PyCharm has some nice tools for modelling the database
+
+Need to set up a connection to the DB
+Need to model classes that map Python classes to tables
+Need a base class to wire all this together 
+When creating the class, the datatype comes from sqlalchemy
+Can set the tablename sepeately to class name, As tables tend to be plural, class names are singular
+__repr__ is a way to return useful info from the class while dedugging
+
+### model base classes
+In seperate file to avoid ciruclar dependencies. 
+generated at runtime
+can have multiple base classes
+
+### connecting to the DB
+Centereted around the unit of work. This is managed by a session
+need to load the database. global init function does this only if db not already loaded
+here you specify the kind o fdb you will use, in the create engine function
+if echo is set to True, you'll get all the sql feedback. Good for debug
+factory that creates the work units is bound to the engine
+
+### creating tables
+let sqlalchemy do it for us 
+do this with metadata.createall. sqlalchemy needs to know about the tables though, so impor them first
+pycharm will tell you it's unusused, progress though
+once created, open db tab on RHS of Pycharm and drag the db across to it
+Pycharm probably doesn' thave the correct driver, click the setings icon in db tab to find it 
+in settings click "test connection" to check all is well
+Double click on database name in the db tab to open a concole for sql queries
+A file __all models__ is used to keep track of all the database classes you make, so they are imported when needed. You'll need to import them here
+right click on the db and select diagrams, get a neat relational image of yoru db!
+
+### indexes
+optimise! a column with an index can be 10000 times faster on search query than one without, so put index=True on any var you may qurey to get all instances of across a table
+Each of the columns you make in the db can have default values, required, indexes and more
+NOTE: you pass the function, not the executed function, for e.g. datetime.now so it will be executed when queried, not when the app starts
+sqlite will not edit tables once they are created. This prevents db loss, but prevents making prod changes to db. To update stuff, you have to drop the table or delete the db file
+
+### Rest of the tables
+BigInteger for ints
+mainteners is interesting many to many mapping with both user_id and package_id as primary keys
+We should set up some key relationships here? not covered in vid 
+Import all these new dbs in all models.py in alphabetical order
+
+### Relationships
+in packages we make a relationship to releases so "releases" maps to the ids of the releases table. We do this with orm.relation. This is simple enough by itself, you normally want it ordered however, here's where order_by is handy. Can easily do order_by =  Relase.created_date.desc(). Or can make an ordered list of hierarchical orderings, as doen in the example.
+This is good cos the database does the sort, this is v fast on an indexed column. Using back_populate links the info of the class you're editing to the entries it gets related to 
+THe other class has to have an id column that exactly matches, except in name, linked with a foreignkey
+protip: always remember to refresh your DB view in pycharm
+
+### key concepts
+All based on the sqlalchemybase class, noe per database
+each of these classes has some attributes like name, email, version no
+they can also have relationships
+autoincrementing ids, default values are both neato
+primary keys automatically have indices. Other things you'll sort on should have indices, they slow write time, but this is not a biggie
+enforcing uniquensess can be handy (email address per user)
+
+## CH10 using sqlalchemy
+
+bin folder for admin tasks, not directly related to running the website
+we need to init the db before anythign else
+
+To create a new pacakge, we create a class instatnce then start a session to insert it into the db
+you can use the relations set up betwen dbs to mean that you only need to explicitly add one, the other connected ones will be added too
+creating data is neat! Just treat them like objects
+
+### unit of work
+
+this allows you to do lots of stuff before deciding to edit the db or not
+You create each one with a session by calling session_factory() then sending it with a commit. Up to the commit there is no change to the db
+
+### querying data home page
+group numbers into nice comma seperate with "{:,}".format(number)
+use simple queries in python files in the services folders to get aggreagte data on the db, e.g. totals
+
+Should try to avoic accessing db from template, v resource wasteful. If you close the session, you can get detached errors. To avoid this, make sure all the access happens in the functions that are aggregating the data
+the tool fro this is sqlalchemy.orm.joinedload
+You can find out if you're making lots of db queries by running the app with engine echo=True
+an engine ROLLBACK means to commit has been made, common after a query
