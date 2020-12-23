@@ -6,6 +6,7 @@ folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, folder)
 
 import pypi_org.data.db_session as db_session
+
 app = flask.Flask(__name__)
 
 
