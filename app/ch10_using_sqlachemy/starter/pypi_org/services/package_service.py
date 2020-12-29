@@ -47,7 +47,9 @@ def get_package_by_id(package_id: str) -> Optional[Package]:
     package_id = package_id.strip().lower()
     session = db_session.create_session()
 
-    package = session.query(Package).filter(Package.id == package_id).first()
+    package = session.query(Package) \
+        .options(sqlalchemy.orm.joinedload(Package.releases)) \
+        .filter(Package.id == package_id).first()
 
     session.close()
     return package

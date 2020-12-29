@@ -307,4 +307,66 @@ the tool fro this is sqlalchemy.orm.joinedload
 You can find out if you're making lots of db queries by running the app with engine echo=True
 an engine ROLLBACK means to commit has been made, common after a query
 
-Tip: when runing on a new machine, make sure to create the database before trying to run the app
+Tip: when running on a new machine, make sure to create the database before trying to run the app
+
+### Working with package details
+
+Note the use of .strip().lower() to partially sanitise user input
+Returning the .first() from a db query and having an Optional return also reduces chance of a crash
+
+joined load stops data from leaking so you can close the session without crashing flask. This is probably the key part of the lesson. It's a little extra overhead, but usually worth it to fetch the linked releases to each package at time of query
+
+### concept: querying data
+
+Always starts by creating a session to start a unit of work
+then do a query on that session followed by one or more filter statements to get just the data you need, followed by one to get just one record back, if wanted. Under the hood, this is doing a SELECT * from <TABLE> where <COLUMN> == x
+
+If we want a set of items back, use .all() rather than .one()
+
+Have a whole bunch of other filters like SQL, there is an ORM syntax for not equal, in, like etc.
+
+### Concept ordering
+
+dbs v good at filtering and ordering. Append .order_by() to your session.query, within the descriptor do .desc or .asc
+
+### Concept updates
+In order to update existing data, retrieve a record from the db, then update a record on that object:
+
+package.author = "jack"
+
+then to save it, call to session.commit() to do **all** changes
+
+### Concept: relationships
+
+Let us imagine connections in a standard Python program, rather than siloed like a db. To do this, we create an orm.relationship. You use back_populate to make sure it works both ways. In the other db, you specify a foreign key to get symmetry. All changes made to these dbs will be bidirectional too after a commit
+
+### Concept: inserting data
+
+session = session_factory()
+package = Package()
+package_id = 'sql'
+package.author = 'mike'
+
+release1 = Release()
+release1.package = package
+...
+
+release2...
+
+session.add(package)
+session.commit()
+
+All the above are now added to the db because of the relationships
+
+
+
+
+
+
+
+
+
+
+
+
+
