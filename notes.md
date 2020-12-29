@@ -302,7 +302,9 @@ You create each one with a session by calling session_factory() then sending it 
 group numbers into nice comma seperate with "{:,}".format(number)
 use simple queries in python files in the services folders to get aggreagte data on the db, e.g. totals
 
-Should try to avoic accessing db from template, v resource wasteful. If you close the session, you can get detached errors. To avoid this, make sure all the access happens in the functions that are aggregating the data
+Should try to avoid accessing db from template, v resource wasteful. If you close the session, you can get detached errors. To avoid this, make sure all the access happens in the functions that are aggregating the data
 the tool fro this is sqlalchemy.orm.joinedload
 You can find out if you're making lots of db queries by running the app with engine echo=True
 an engine ROLLBACK means to commit has been made, common after a query
+
+Tip: when runing on a new machine, make sure to create the database before trying to run the app
