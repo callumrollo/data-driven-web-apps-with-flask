@@ -462,6 +462,17 @@ Note the use of GET and POST for the login and register functions in views/accou
 
 ### Registration form
 
+Prefer placeholder to label in fillable fields like registration email boxes
 
+Over in `account_views` the /account/register GET function runs each time the site is visited, the corresponding POST function runs when the submit button is pushed
 
+Do most of the styling in a custom css sheet in css. This is linked in the block "addition css" at the bottom of the register.html
+
+Some styling of fields and buttons is by bootstrap (the class in the html)
+
+To adjust suff within in a block (e.g. all fields in the form) use:
+`form.account-form > * {CSS stuff}`
+
+To stop stuff breaking out the bottom of forms:
+`<div style="clear: both;"></div>`
 
