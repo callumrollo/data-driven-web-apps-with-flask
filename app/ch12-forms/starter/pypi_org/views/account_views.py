@@ -64,7 +64,27 @@ def login_get():
 @blueprint.route('/account/login', methods=['POST'])
 @response(template_file='account/login.html')
 def login_post():
-    return {}
+    r = flask.request
+    email = r.form.get('email', '').lower().strip()
+    password = r.form.get('password').strip()
+
+    if not email or not password:
+        return {
+            'email': email,
+            'password': password,
+            'error': 'some required fields are missing.'
+        }
+    # TODO: validate a user
+    user = user_service.login_user(email, password)
+    if not user:
+        return {
+            'email': email,
+            'password': password,
+            'error': 'The account does not ecist or password is incorrect'
+        }
+
+
+    return flask.redirect('/account')
 
 
 # ################### LOGOUT #################################

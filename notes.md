@@ -495,5 +495,12 @@ Never store password directly in the database! instead, use passlib. This will h
 
 Also need to check if the user exists already before making another one. Ensure unique email for this
 
+### Login forms
+
+Start from a clone of the registration page
+check if the email matches one in the db
+Use verification from the passlib library to check the password against the hash
+
+
 
 
