@@ -358,15 +358,29 @@ session.commit()
 
 All the above are now added to the db because of the relationships
 
+## CH11 DB migrations with alembic
 
+It's hard to change DBs when using an ORM. One of the bi challenges of dbs, one of the reasons for n-db solutions. However there is tooling available
 
+If you try to add a field, can get a sqlalchemy operational error when the schema of the db do not match your query
 
+Have to keep the db exactly in sync with the code. Two ways:
 
+- Make a script to update the db when you change the production. Not hard in sqlite (just a file). Real problem is with seperate dbs where they get changed in development
+- Use alembic. Created by the guy behind sqlalchemy.
 
+Alembic is a db migration tool that tracks production and staging dbs. Alembic can patch your dbs. Doens't solve everything, but does solve a lot
 
+### Getting started with Alembic
 
+Add alembic to dev environment
+run initla alembic command to init: alembit init alembic, in parent folder of app
+You'll be told to edit an ini file
+You have to add the sqlalchemy url path, this is the relative path to the db file
+As you make changes to the db, they are stored as scripts in alembic/versions
 
+pycharm note: if the db shows "no schema" or similar, make sure you right click on it >> properties >> test connection
 
+There should be a table in the db "alembic_version" just above downloads. This should be a single row when working properly
 
-
-
+The preferred way to make changes to the db is with alembic from the command line, not inserting in the app!

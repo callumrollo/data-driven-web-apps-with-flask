@@ -6,13 +6,12 @@ import sqlalchemy.orm as orm
 from pypi_org.data.modelbase import SqlAlchemyBase
 from pypi_org.data.releases import Release
 
-
 class Package(SqlAlchemyBase):
     __tablename__ = 'packages'
 
     id = sa.Column(sa.String, primary_key=True)
     created_date = sa.Column(sa.DateTime, default=datetime.datetime.now, index=True)
-#    foodate = sa.Column(sa.DateTime, default=datetime.datetime.now, index=True)
+#    last_updated = sa.Column(sa.DateTime, default=datetime.datetime.now, index=True)
     summary = sa.Column(sa.String, nullable=False)
     description = sa.Column(sa.String, nullable=True)
 
