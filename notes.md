@@ -476,3 +476,9 @@ To adjust suff within in a block (e.g. all fields in the form) use:
 To stop stuff breaking out the bottom of forms:
 `<div style="clear: both;"></div>`
 
+### register POST action
+
+the form submits the name and user entered value in each field as a key-value pair, so give each field a name
+
+using a default empty string for email also doing lower and strip to make it cleaner
+
