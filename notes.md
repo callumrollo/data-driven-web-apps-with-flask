@@ -501,6 +501,28 @@ Start from a clone of the registration page
 check if the email matches one in the db
 Use verification from the passlib library to check the password against the hash
 
+### Create a user session (cookie)
 
+So that the site recognises the user logged in
+These are fairly simple in Flask, combining it with the redirect and response is a littel trickier
+Stopping the cookie being tampered with needs some thinking. Can't just make it a simple number!
+Much of the logic in is infrastucutre/cookie auth. This is pretty well self described
+Takes a user ID and hashes it up, then it makes a val based on this user id and the hash value. This is the cookie I think
+You can set the cookie timeout
+
+The authentication step is in `get_user_id...` this checks that it hasn't been tampered with. This is how we recover the user id
+
+To check that the cookie has been created:
+Login on site
+Inspect element
+Refresh page
+Network >> HTML >> account >> Cookies
+
+in the account index function, adding logic for cookies
+
+If the user is not logged in (no cookie)  >> redirect to login page
+If the user is matched, return it
+
+Some important redirects here. 
 
 
