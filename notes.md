@@ -529,3 +529,18 @@ Some important redirects here.
 
 control this from shared layout. This won't work by itself though, as you have to pass `user_id` from every view!
 fix the ugly way first
+
+### Sources of data
+
+Can come from the form, the url, from a query string... Not a great pattern!
+Lets have just one place to ask about where stuff may have been passed
+We do this by creating a unified merged dictionary
+This is in `request_dict` of infrastructure. Works by taking arguments passed by flask with `**route_args` works from least (url strings) to greatest (additional args) priority
+This creates a single RequestDictionary
+This saves awkward r.get("value") style stuff, returns None if the requestedd value doesn't exist, avoiding awkward crashes
+. It takes the flask.request by default
+This allows things to look much nicer and cleaner, for instance in login get of account view. You no longer care where the data came from.
+
+I guess this isn't essential if you are happy to keep track of where all your data are coming from
+
+This is very much a Michael thing, not basic flask
