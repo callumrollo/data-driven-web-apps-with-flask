@@ -407,3 +407,61 @@ n.b when adding a new table, it has to be imported in `__all_models` or alebmic 
 alembic appears to just be a series of text files. as long as you didn't upgrade, you can just delete files it makes with no instructison in them (just pass) withoug issue
 
 alembiuc helpers gives you functions that ask questions before editing the db. The example one will look at tables, and not create a new one only if column does not exist. If it tries to create a col that already exist, db will crash! this adds fault tolerences
+
+### concept: getting started
+
+pip install alembic
+alembic init alembic
+set connection string in alembic.ini at sqlalchemy.url
+Note that if you used a relative path here, you'll have to run alembic from the right place!
+Point to your sqlalchemy models in env.py
+scripy.py.make generates the stuff to change the db
+versions folders contains all the alembic changes like git
+
+### concept: making a change
+
+The reason to use autogen is that manual changes is a pain. You can do this by running a command line arguments from alembic to make a sekelton alembi cchange file, you then add the changes you want manually.  
+It is safest to use a helper, as shown in final folder. To import it is a little weird, has to be done in each alembic version script. This is maybe just in the video?
+
+Check what version you're on with `alembic current` or just check the version in the db
+Upgrade with `alembic upgrade head`
+
+### concept: auto-generating changes
+
+Best way to run alembic is to let sqlalchmy pre-build the changes, then you can edit them. This is why we made the changes to env.py to point at the classes, then did autogenerate
+Note that nothing happens when you autogenerate, only when you upgrade
+
+## CH12 user submissions and html forms
+
+Basics of an html form. Has an action and a method, action can be empty, meaning that url you submit it to is the same as the page you are on. http verb you want (method) is POST. You want this bc it is treated special, will not be cached and will warn you if you try to resubmit.
+
+Then have input elements, e.g. of type test and type password. These can have an optional value that shows in the text box. They have names that you'll get out on the server side.
+
+Have an error message that's shown if there is an issue, techinically outside of the form though
+
+### GET-POST redirect pattern
+
+1. User does a GET on the register page (after clicking register link)
+2. We send them a form
+3. They edit it locally
+4. Theyt click submit that sends a POST to the server
+5. Server does some validation
+6. Server saves this data to the db
+7. Send them a 302 redirect to get them to the welcome. This way, they don't get a warning on refresh
+
+On wikipedia this is called post/redirect/get. Mike doesn't like it though as the order sounds wrong
+
+### Register for site 
+
+Need to register the blueprint for account views
+
+Remember each view has a folder in templates
+
+Note the use of GET and POST for the login and register functions in views/account. This is a much better design pattern than having a single login function with an if statement switch for GET vs POST. It's ok for these to have the smae namge as they have differing methods
+
+
+### Registration form
+
+
+
+
