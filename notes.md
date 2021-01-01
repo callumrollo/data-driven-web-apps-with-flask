@@ -381,6 +381,29 @@ As you make changes to the db, they are stored as scripts in alembic/versions
 
 pycharm note: if the db shows "no schema" or similar, make sure you right click on it >> properties >> test connection
 
-There should be a table in the db "alembic_version" just above downloads. This should be a single row when working properly
+There should be a table in the db `alembic_version` just above downloads. This should be a single row when working properly
 
 The preferred way to make changes to the db is with alembic from the command line, not inserting in the app!
+
+this looks very similar to git:
+
+alembic revision --autogenerate -m "did a thing"
+
+If you try this dry, will fail with metadata object error in alembic/env.py you need to update the `target_metadata` variable
+
+after specifying the sqlalchemy base class (and all other sql classes you use) you need to coddle alembic by explicitly giving it a python path
+
+When you run the autogenerate again, alembic makes a python file in alembic/versions. This contains commands to upgrade and downgrade. Does not change the db! Just makes a file to help you.
+
+To change: alembic upgrade head
+
+This will run the upgrades it needs to. Note the `alembic_version` table of the db to see where it's at
+
+### More alembic changes
+if you create a new class in your python files, then run the app, sqlalchemy will create it, not alembic
+
+n.b when adding a new table, it has to be imported in `__all_models` or alebmic will not see it
+
+alembic appears to just be a series of text files. as long as you didn't upgrade, you can just delete files it makes with no instructison in them (just pass) withoug issue
+
+alembiuc helpers gives you functions that ask questions before editing the db. The example one will look at tables, and not create a new one only if column does not exist. If it tries to create a col that already exist, db will crash! this adds fault tolerences
