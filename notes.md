@@ -525,4 +525,7 @@ If the user is matched, return it
 
 Some important redirects here. 
 
+### Nav based on users session
 
+control this from shared layout. This won't work by itself though, as you have to pass `user_id` from every view!
+fix the ugly way first
