@@ -20,7 +20,9 @@ def index():
     if not user:
         return flask.redirect('/account/login')
     return {
-        'user': user
+        'user': user,
+        'user_id': cookie_auth.get_user_id_via_auth_cookie(flask.request),
+
     }
 
 
@@ -45,7 +47,8 @@ def register_post():
             'name': name,
             'email': email,
             'password': password,
-            'error': 'some required fields are missing.'
+            'error': 'some required fields are missing.',
+            'user_id': cookie_auth.get_user_id_via_auth_cookie(flask.request),
         }
     # TODO: create a user
     user = user_service.create_user(name, email, password)
@@ -54,7 +57,8 @@ def register_post():
             'name': name,
             'email': email,
             'password': password,
-            'error': 'email already associated with registered user'
+            'error': 'email already associated with registered user',
+                     'user_id': cookie_auth.get_user_id_via_auth_cookie(flask.request),
         }
     resp = flask.redirect('/account')
     cookie_auth.set_auth(resp, user.id)
@@ -81,7 +85,8 @@ def login_post():
         return {
             'email': email,
             'password': password,
-            'error': 'some required fields are missing.'
+            'error': 'some required fields are missing.',
+                     'user_id': cookie_auth.get_user_id_via_auth_cookie(flask.request),
         }
     # TODO: validate a user
     user = user_service.login_user(email, password)
@@ -89,7 +94,8 @@ def login_post():
         return {
             'email': email,
             'password': password,
-            'error': 'The account does not ecist or password is incorrect'
+            'error': 'The account does not ecist or password is incorrect',
+                     'user_id': cookie_auth.get_user_id_via_auth_cookie(flask.request),
         }
     resp = flask.redirect('/account')
     cookie_auth.set_auth(resp, user.id)
