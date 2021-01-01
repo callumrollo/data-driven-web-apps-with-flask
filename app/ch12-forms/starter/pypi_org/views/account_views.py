@@ -1,6 +1,7 @@
 import flask
 
 from pypi_org.infrastructure.view_modifiers import response
+from services import user_service
 
 blueprint = flask.Blueprint('account', __name__, template_folder='templates')
 
@@ -37,7 +38,19 @@ def register_post():
             'password': password,
             'error': 'some required fields are missing.'
         }
-    return {}
+    # TODO: create a user
+    user = user_service.create_user(name, email, password)
+    if not user:
+        return {
+            'name': name,
+            'email': email,
+            'password': password,
+            'error': 'email already associated with registered user'
+        }
+    # TODO: login to site
+
+
+    return flask.redirect('/account')
 
 
 # ################### LOGIN #################################

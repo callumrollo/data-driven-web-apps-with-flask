@@ -487,5 +487,13 @@ using a default empty string for email also doing lower and strip to make it cle
 
 We want to a) use the values and b) round trip the values i.e. stop them dissappearing if the user hits "submit" and there is an issue
 
+We do this with an error catch in views that returns the dictionary of values and returning the value in register.html value="{{ name }}"
+
+### Creating the user
+
+Never store password directly in the database! instead, use passlib. This will hash and verify passwords. It will salt automatically and does multiple rounds of hashing
+
+Also need to check if the user exists already before making another one. Ensure unique email for this
+
 
 
