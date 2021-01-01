@@ -482,3 +482,10 @@ the form submits the name and user entered value in each field as a key-value pa
 
 using a default empty string for email also doing lower and strip to make it cleaner
 
+
+### Getting the submitted values 
+
+We want to a) use the values and b) round trip the values i.e. stop them dissappearing if the user hits "submit" and there is an issue
+
+
+

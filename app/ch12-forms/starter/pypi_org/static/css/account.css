@@ -29,3 +29,6 @@ form.account-form {
     padding: 10px;
 }
 
+.error-message {
+    text-align: center;
+}
