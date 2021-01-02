@@ -668,3 +668,15 @@ Set the string searches in your tests just specific enough, so they don't fall o
 We do two layers of mocking so that the test an existing user in not found in the db and a user is succesfully created. we teest that teh response has the correct location
 
 There is a nice way to de-indent this, shown in the final folder
+
+### Concept testing view methods
+
+We can assume that validation and data exchange are fine. We need to test that the view method is using these responses correctly
+
+If we test a simple page with no db, we import a method from views, create a context manager which is just a request to '/' then we capture the response. Methods always return a response. We test that the status code is 200 and that other things returned are as expected (e.g. list of packages is longer than 0)
+
+For a more realistic version, we need a fairly complicated test to mock the db. We impor the project, import a Package class and create a fake test package with releases. We mock out the function that would look for a package by id and return our mock package, likewise for release. We set the context to project/sqlalchemy. We have to pass the package id directly to the function.
+
+Finally, we test the returned package aginast our expected fake data.
+
+
