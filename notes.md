@@ -643,3 +643,11 @@ We can cover a bunch of cases by requestinge every page from the sitemap. What o
 We could use unit tests or pytest, however, in the flask doc all of them use pytest. So we'll use that
 
 To run pytest in PyCharm: edit configurations, + python tests, pytest. Path to script to your pytest script
+
+Tests will never be called by a human so you can make the names very descriptive
+
+**3 As of testsing: Arrange, Act then Assert**
+
+First challenge of testing form validation: how to get the form data into flask. We do it with a context manager. This stuff goes in test client and is talked about in the flask documentation.
+This is the function `test_request_context` from the flask app that is used as a context manager, so we can pass form data to the viewmodel as if it came from a user
+Next we have an issue that we cannot talk to the db! Don't want the db though, how do we get around this?
