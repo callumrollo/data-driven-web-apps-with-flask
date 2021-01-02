@@ -689,3 +689,8 @@ We don't want to really run flask though. Here is where pytest fixture comes in,
 The test for no user is simple, as no succesful check of the db is expected. To test for a user that is logged in will be a bit more tricky, we need to mock the db return, just as we did before. Note that this is bocking it from hitting the db, so the db is outside the scope of this test
 
 Note that to search for a string in the output of this page, you need to look in the binary, so prepend the string with a b
+
+### The rest of the tests
+
+Split test by naming them by type e.g. `test_vm_...` for viewmodel tests
+We dump all the tests into an `_all_tests` file so we can run them all in one
