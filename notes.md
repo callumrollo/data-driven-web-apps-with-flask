@@ -694,3 +694,21 @@ Note that to search for a string in the output of this page, you need to look in
 
 Split test by naming them by type e.g. `test_vm_...` for viewmodel tests
 We dump all the tests into an `_all_tests` file so we can run them all in one
+At the point, `test_int_site_mapped_urls` is failing. This may be intentional as I don't think I've made a sitemap yet? Should check
+
+### Running tests outside of pycharm
+
+activate the virtual env, run `pytest _all_tests.py --disable-warnings` it's not happy! Doesn't find `pypi_org` wouldn't be an issue if we packaged it up. Or we can add some boiler plate to the beggining of all tests to add stuff to the path. Pycharm does this for us.
+
+### pareto principle and testing with sitemaps
+
+The sitemap can be found at site home/sitemap.xml this is primarily for search engines and lists all the pages of the site. This can be big as it lists every page, may want to cache it
+
+You can limit the number of items in your sitemap. All this stuff in in seo view. Have to list last updated time too. There's some unpleasant looking stuff in the sitemap template. This sets the base static files and loops through the packages
+
+In the tests we let it hit the db, as we want to test with the real pacakges. We use Python xml stuff to find all the urls and a quick replace. On each one we do a client.get() to check if they exits. We only really need to test one. There's some complicated stuff. Need to do some text replacement on the xml text.
+
+This is working in final but not in starter. Not certain why...
+
+Sitemap testing is v important and easy tests.
+
