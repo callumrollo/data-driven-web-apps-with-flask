@@ -583,3 +583,25 @@ sqlalchemy: detatched instance error! Not in my session, but in Michael's. This 
 For this, we're doing some magic over in `data/db_session create_session` function. sqlalchemy is normally super safe, so makes sure that you can't mess with data you commited. Specifically stops you looking at values after they've been commited.  We are making that false here, so you can shove stuff at the db. We may not want this! 
 
 This whole thing radically simpoifies data exchange and validation
+
+### Viewmodel concept
+
+User submits a form via an HTTP POST. Flask and many other web frameworks encourage a super complicated view method. All the validation, cleaning, checking in this viewmodel. Get a lot of duplication this way
+The viewmodel pattern puts all that elsewhwere. This makes teh code cleaner and easier to test. View method is not more maintanable.
+
+The value of this also makes shunting data around much easier. All you ever need do is return the vm.dict
+
+### Viewmodel data exchange
+
+Viewmodels provide data exchagne/normalistaion and data validation
+The dictionary is core to this
+Important to have default user id and error
+The other derived viewmodels (concrete veiwmodels) just have to enter data in these fields that will be returned as a dict
+The super init sets all this base stuff, then the concrete model adds more stuff to the dict.
+
+### Concept: server side validation
+
+These are all our checks for if the form is ok. This is usually the only time you have to validate. You can return friendlier errors with your validation fails if you wish. e.g. if a user already exists, do you wanna reset your password?
+
+### Client side validation with HTML5
+
