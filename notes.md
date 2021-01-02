@@ -544,3 +544,21 @@ This allows things to look much nicer and cleaner, for instance in login get of 
 I guess this isn't essential if you are happy to keep track of where all your data are coming from
 
 This is very much a Michael thing, not basic flask
+
+## CH13 client and server side validation
+
+### Motivation for view models
+
+Last time we had very little checks and validation. These are essential
+Will use a design pattern called viewmodels. This is not Flask native, but tused in lots of other web apps.
+Presently we pass around user and user id. When it comes to something like post we have to roundtrip lots of data, an error message and user. This is not ideal. Also we need more checks! More granular checks on fields etc.
+Viewmodels simplifies all this
+
+### Viewmodel base class
+
+Data exchange is deeply tied to html template and the view method that passes stuff to it. This will be the viewmodels job to do all the data exchange and validation. Each one is particualr to the template + view model combo, but they have common features. e.g. everyone has the user auth token check and an optional error.
+
+We start this class with a flask request and the common reqiest dict we created in the previous chapter
+It has optional error message and optional user id
+We need this to return a dictionary of values (e.g. the email, name etc from register form)
+This is a good base class, but to be useful we need specific views 
