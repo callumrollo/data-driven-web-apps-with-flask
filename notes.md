@@ -605,3 +605,9 @@ These are all our checks for if the form is ok. This is usually the only time yo
 
 ### Client side validation with HTML5
 
+If you have a slow ping, validating on the server can be slow and annoying
+By simply adding the key word argument required to the html, this will be validated client side, and will not submit until they are all filled
+You can also use more sophisticated types like email for each form field
+Can also do stuff like setting a min or max value for the fields
+Client side validation will not protect you from malicious POSTs. Some stuff can't be done on user side like checking if an email is already registered
+
