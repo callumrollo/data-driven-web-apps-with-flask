@@ -679,4 +679,13 @@ For a more realistic version, we need a fairly complicated test to mock the db. 
 
 Finally, we test the returned package aginast our expected fake data.
 
+### Integrated tests
 
+Time to fire up flask and run full tests on the app
+We will test the account page. Two scenarios: if user is logged in they see it. It user is not logged in they get redirected
+
+We don't want to really run flask though. Here is where pytest fixture comes in, client over in `test_client`. When you pass it as a variable, it registers blueprints and sets up a db. Then it yields out a client. Note that you have to pass the test function the object `client`
+
+The test for no user is simple, as no succesful check of the db is expected. To test for a user that is logged in will be a bit more tricky, we need to mock the db return, just as we did before. Note that this is bocking it from hitting the db, so the db is outside the scope of this test
+
+Note that to search for a string in the output of this page, you need to look in the binary, so prepend the string with a b
