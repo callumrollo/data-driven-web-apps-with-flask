@@ -660,3 +660,11 @@ Cool thing: Can also return "FOUND" as if from an sql query in the mock statemen
 ### Testing registration when inputs are invalid
 
 We should write tests for all foreseeable cases, password missing, too short etc. In this bit of mocking, we set the returned email from the db to be the same as that submitted on the form
+
+Set the string searches in your tests just specific enough, so they don't fall over if you slightly change the wording of your error messaged
+
+### Testing veiw methods
+
+We do two layers of mocking so that the test an existing user in not found in the db and a user is succesfully created. we teest that teh response has the correct location
+
+There is a nice way to de-indent this, shown in the final folder
