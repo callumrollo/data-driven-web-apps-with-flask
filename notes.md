@@ -561,4 +561,25 @@ Data exchange is deeply tied to html template and the view method that passes st
 We start this class with a flask request and the common reqiest dict we created in the previous chapter
 It has optional error message and optional user id
 We need this to return a dictionary of values (e.g. the email, name etc from register form)
-This is a good base class, but to be useful we need specific views 
+This is a good base class, but to be useful we need specific views
+
+### Using a viewmodel
+
+First example is from the account index page. Note that the init takes no args bc no args are passed to this view. because of this you need super init? unsure
+we can use `self.user_id` as the base class already set this up
+
+Now, when calling this view model as vm, it does all the validation and field generation for us. We can just return the dict from vm. Even if it has some unused values in, that's fine
+
+### The register viewmodel
+
+Here we make use of the common `request_dict` to collect all the data together. As the fields 
+
+Enahnced check: self.name.strip() checks for names made only of spaces. Also check for short passwords etc. All this is in the viewmodel
+
+Back in the view, the only check you need is if there is an error in the validation
+
+sqlalchemy: detatched instance error! Not in my session, but in Michael's. This happens when your db gets out of sync with the session after you make a change and commit a transaction
+
+For this, we're doing some magic over in `data/db_session create_session` function. sqlalchemy is normally super safe, so makes sure that you can't mess with data you commited. Specifically stops you looking at values after they've been commited.  We are making that false here, so you can shove stuff at the db. We may not want this! 
+
+This whole thing radically simpoifies data exchange and validation
