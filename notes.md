@@ -611,3 +611,35 @@ You can also use more sophisticated types like email for each form field
 Can also do stuff like setting a min or max value for the fields
 Client side validation will not protect you from malicious POSTs. Some stuff can't be done on user side like checking if an email is already registered
 
+## CH14 testing web apps
+
+Write tests to find bugs. Make CI with e.g. Travis meaningful.
+
+Testing web apps have particular challenges. Tend to have more tangled dependencies. There are lots of implicit things needed, like a request, a reguest.form, cookie... Often needs a db to check against. How do you test a redirect? email?
+
+Test frameworks have all we need
+
+### Types of test
+
+Note we're not covering basic unit tests here
+3 groups: view models, view and integration.
+
+View models are simplest, also important as they do the validation. They implicitly use request
+
+Next, a view method wraps the view model. We test this next, it also uses request. Need to provide a controlled input
+
+Full web app, including the db init. We can test this with stuff from flask as if the web app was running. Can simulate a browser
+
+Can finally spin up a full test server and hit it with Selenium to get a user erquivalent test. Not covered in this course
+
+### Organizing tests in flask
+
+We want logical organisation for tests just like the app itself. TYpically, we group out tests in the same way
+sitemap.xml lists all the links in your site. Mostly to help search engines
+We can cover a bunch of cases by requestinge every page from the sitemap. What often happens is a super major fail that gives a 500 or a 404. Easy to catch at least
+
+### Getting started with tests
+
+We could use unit tests or pytest, however, in the flask doc all of them use pytest. So we'll use that
+
+To run pytest in PyCharm: edit configurations, + python tests, pytest. Path to script to your pytest script
