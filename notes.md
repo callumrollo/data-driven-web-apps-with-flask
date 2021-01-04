@@ -838,3 +838,98 @@ listen on 80
 set the domain name in servername have to buy a real one to get SSL
 Static gets our static content
 / tries against the application, we pass to uWGI through localhost
+
+## CH16 MongoDB
+
+The most popular document db
+Why tho? no problems with migrations
+NB not doing anythign in starter here, all in final
+
+### how do doc dbs work
+
+Very different to relational dbs. No tables. Much closer to the style of memory (hierarchichal). So you have nested stuff in them, like a precomputed join. These can have indexes added to the nested so speed of simple lookup is not lost
+
+### Connecting to mongoDB
+
+As with SQL, don't run the quiries directly, we have a higher engine, called teh mongoengine
+
+check out setup in nosql/mongosetup
+
+We have a dbname. We have a series of db aliases, you can have multiple dbs. THis is chosen in db connection
+You need to specify quite a few things about secirity, users etc.
+
+Consequentially, setting up the db over in app is a lot simpler
+
+In practive, probs get usernmae and password from a file so doesn't get into git
+
+because we put all our db access in a few files in services, it's easy to adap tto mongodb
+
+### user entity with mongoengine
+
+sqlalchemy and mogoengine have a lot of similarities
+We're making all the equivalent stuff in the nosql folder to model off of the data folder
+Compare the way that users.py is done in mongo vs sql in these two folders
+Defalut behaviour is a little different. In mongo nullable is always true. Indexes a specified somewhere else.
+We drop a couple of the fields bc we never used them in the app
+
+### Saving a user
+This is in `user_service/create_user` 
+saving is simpler, no unit of work just user.save()
+There are lots of wyas to look at mongodb. An app called robo3t makes it easy
+When we view the documents, see that they are just like json
+`_id` in the svaed file, but just .id when you access it from the system
+
+Implicit behind this is that MongoDB is running on your PC
+
+### The rest of the entities
+
+It's all very similar to mysql, just semantics of setting it up
+You can overwrite the primary key if you want
+In packages you start to leverage the advantages of mongodb
+No more need for maintaner id project id normalisation table for many to many relationship.
+In mongodb ou just need a list of maintainer ids in each project to identify which users are associated with each project
+
+### Rewriting our quiries
+
+You can just write a query in the view method, shouldn't thoufh. instead, just need to rewrite the stuff in services which is nice. Hooray for design patterns. Cookie management is slightly complicated though
+Way simpler to query a db in mongo. You jsut get an object and list it. Very Python. PAckage quer also simpler, no objects, no joins... no double =
+With lots of small methods in one place, it's quick and easy to switch over to mongo
+
+### Fixing the login
+
+we get an error with object id, bc we are using cookies. However, mongodb reqiures a bson object (binary json I think?) whatever, easy fix.
+
+### Importing data to mongodb
+
+There's a cool techinique to migrate from any sqlalchmey db to mongodb
+bin/migrate
+You init both db connections, be caerful not to overwirte, so starts with a check for a clean db in mongo
+we just loop through the stuff table by table, field by field
+You can do bulk inserts with mongo engine if lots of data, not necessary here
+Check imports for differential between the common class names
+bwtter check all your data made it over
+
+### home page cleanup
+relationships can trip you up, if you set them before in sql
+You don't really wanna do this in mongodb
+problem is in templates home index
+where we go to each package associated with each release, from where we created that neat reciprocal relationship in sql
+to solve this we create a package lookup dicationary that, when given a pckage id, returns the package
+this magic is happening in viewmodels home indexviewmodel and package service
+n.b you can create variables in jinja, as demoed here
+This extra query is very little overhead. Negligibel in this case
+
+### package details cleanup
+
+Again some messing to be done to match the data model, bc the package does not have releases
+
+### concepts
+
+Have to register connections
+Create basic classes, all the documents you make will be made on this pattern
+Don't have to be limited to tabluar data, instead you can just embed lists in here. It's many to many as well
+Simple patterns for search and filter, much more similar syntax to Python 
+More details of more advances filtering syntax in here
+Remember to do all teh data access before you leave a function. In mongodb, saftest way is to list(response)
+
+
