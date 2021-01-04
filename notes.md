@@ -786,3 +786,55 @@ to see the http of the page
 
 uWSGI properly runs the python code in production. Controlled by pypi.service
 Has options for the virtual environment, number of process and threads, http address. Best thing to test first is to run the command called Exec Start. This requires a python file wsgi.py at the top level directory
+
+With this v basic file in place, running the exec comand from the correct directory will work. Check again with http, noting that it's probs on 5000 now
+Check back on the runing uWSGI for response code and speed. Subsequent page requests will be quicker
+
+### uWSGI as a service
+
+back in the bash script, copy the daemon
+service is now setup under the name pypi. Can be controlled with systemctl
+Probs shouldn't be running as root tho :/
+Hit it with the http to check
+This is now running in background so you can logout. This will restart with the server too after reboots
+We're not currently opening the 5000 port, so it won't show outside
+
+### Running in nginx
+
+This is all the user sees
+If we visit the servers ip in a browser, we'll see nginx is up
+We need it to run our code, back to the shell script
+Remove the site enabled default nginx
+Then copy over our pypi.nginx this includes:
+listen on port 80 
+server name (www.google.com or whatever) this way, the same nginx can serve lots of sites
+don't pass back the server version (serer tokens)
+location of static files, just handled by nginx. These are cahced for a year
+otherwise try files over at 5000
+Micael likes to use http internally, can use unix sockets. This is more performant, but http is easier to test
+This site is online! Awesome
+
+One thing I missed was loading in the data. Should have all been in starter, but somewhere we pointed toward final. Looks like it was in the pypi.service file
+
+### Adding SSL with let's encrypt
+
+We want a domain name and to secure with SSL
+We need the fake servername in pypi.nginx or let's encrypt won't work? unsure
+This gets a little confusing, read some more articlee
+managed to get a free domain from noip.com just set the ip address there correctly
+Success! Secured with lets encrypt. Only needs the commands form the bash file
+When answering the SSL questions, yes to redirect
+
+Need to setup a cron job or manually renew the certs every 90 days
+
+### Concept uWSGI
+
+We could have a lot more threads per process
+Final forward slash in runtime dir is essential
+Best to run exec command seperately first to check
+
+### nginx concept
+listen on 80
+set the domain name in servername have to buy a real one to get SSL
+Static gets our static content
+/ tries against the application, we pass to uWGI through localhost
