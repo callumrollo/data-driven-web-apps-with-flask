@@ -712,3 +712,41 @@ This is working in final but not in starter. Not certain why...
 
 Sitemap testing is v important and easy tests.
 
+possible check out https://buildstaticwebsites.com/guides/why-you-need-a-sitemap-and-how-to-create-one-with-flask
+
+## CH15 Deployment
+
+Using a standard linux server on the cloud. Will work on linude, azure, AWS etc.
+
+Could use heroku to grab fro github: easier but more expensive
+
+Won't cover setting up a db server. Advantage of sqlite it's just a file
+
+- Get an Ubuntu server
+- Install NGINX, this is what people talk to on port 80, does http and https
+- NGINX serves up static files, it delegates running Python code to
+- uWGI (micro whisgy) this will handle Python requests.
+- Need to be aware of the GIL that inhibits parallelism within a single process
+- Beneficial to multiprocess, we'll get uWGI to spin off lots of itselves. 
+- So we'l have lots of sites in parallel
+
+Topology:
+Req comes in over https, hits NGINX, from here on, just http is fine, passes it to uWSGI, uWSGI decides which worker process will take it, this gets passes back through the layers to the client
+
+### Creating a linux server
+We'll use digital ocean, linode is very similar
+
+Standard setup with Ubuntu LTS. So far identical to linode
+
+### Setup script and config files
+
+Need to setup uWSGI and nginx. This is performed with three scripts in the server directory next to `pypi_org` 
+
+bash script has all the steps you'd apply to a server to get a good working state with all dependencices and firewalls. A few lines are interactive but most can be run all in one. Better to do bit by bit though.
+
+The way we're running it doesn't make uWSGI happy, as you just imoport it from the app, rather than running it. This is covered by the else: configure in app main. uWSGI won't do this though, it won't do teh configure commadn for instance. This tweak is necessary to get uWSGI to play ball, there are other ways
+
+
+
+The unitfile in pypi.service is for a background daemon. Runs when system starts. 
+
