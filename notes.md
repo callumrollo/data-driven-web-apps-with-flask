@@ -747,6 +747,42 @@ bash script has all the steps you'd apply to a server to get a good working stat
 The way we're running it doesn't make uWSGI happy, as you just imoport it from the app, rather than running it. This is covered by the else: configure in app main. uWSGI won't do this though, it won't do teh configure commadn for instance. This tweak is necessary to get uWSGI to play ball, there are other ways
 
 
-
 The unitfile in pypi.service is for a background daemon. Runs when system starts. 
 
+### Configure the server
+
+We use git to get files to the server
+
+Working through the bash file:
+
+nload for monitoring traffic
+tree for dir structure
+use fail2ban to blacklist teh spammers
+Next some port opens: 22 for ssh, 80 for requests, 443 for ssh
+Then enable it. Double check you allowed 22!
+
+github config to remember creds for a month
+
+Setup a bunch of folders for the app, note that the base is 777
+Haven't setup logging in this course, should do this
+
+System is solely dedicated to this site, could just use the system Python. This is risky if we break it though, use a virtualenv as instructed here. Note activattion of venv. Can also use:
+. venv/bin/activate
+
+httpie is like curl or wget, lets us test out app, is nicer
+glances in a gui that helps you understand whats running. Like htop
+need uwsgi within the environment
+
+### Make virtualenv always active
+just pop source /apps/venv/bin/activate at the end of zshrc. Standard
+
+### Setting up our code
+
+With the app running in one terminal, open another on the server and do
+http localhost:5006 
+to see the http of the page 
+
+### Running under uWSGI
+
+uWSGI properly runs the python code in production. Controlled by pypi.service
+Has options for the virtual environment, number of process and threads, http address. Best thing to test first is to run the command called Exec Start. This requires a python file wsgi.py at the top level directory
