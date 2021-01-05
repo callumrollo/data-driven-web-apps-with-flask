@@ -932,4 +932,46 @@ Simple patterns for search and filter, much more similar syntax to Python
 More details of more advances filtering syntax in here
 Remember to do all teh data access before you leave a function. In mongodb, saftest way is to list(response)
 
+## CH17 Conclusion
 
+### jinja2
+
+Default dynamic html language for flask
+mostly html with {{ python blocks }} and {% for loops %}
+
+### layout motivation
+the extends blocks let you use shared layout template for reduced work and standardisation
+make maintenence much easier too
+
+### route examples
+we can refer to the static folder with an implicit static route. Flask can handle this
+Dynamic pages can have a static route with @app.route('route/to/page')
+Or they can have a variable in route @app.route('route/<var1>/<var2>')
+Can even have them sepcify a data type, like only respond to integers, so it won't catch strings which can be set to a seperate route.
+A good idea to organise these specific first, general last. So do named routes, then vraiables, then catch all integers. As flask will pay attention to ordering for directing a query
+
+### Themes
+Bootstrap makes pages look a lot nicer. Just whack a theme in with some CSS, JS and a couple of images. Easy to drag and drop, try the free theme pages
+
+### Query data
+Python classes map to sql queries by using sqlalchemy. Can chain conditions together and decide what to take from the output
+
+### Database migrations
+Essential in production if your classes no longer match your db. Set up alembic for this. Still need to run alembic itself though, so not self monitoring
+
+### GET-POST-Redirect
+html forms accepting user input and communicating with the user for a pleasant and secure experience
+
+### View model pattern
+Makes sense to seperate out the data sharing and validation into a viewmodel
+This is a design pattern and a good one. Can be rich in it's response like redirecting to a login page
+There are other add-on libraries that will do this instead, but this gives yo control and testability
+
+### Three types of test
+view model, view method (uses view model) and integrated test with a fake http that runs in a fake server. Can test every single page if you want it to
+Could test against server and do tiny little unit tests
+Pareto principle: poll every url in site map will find most errors
+
+### Architecture/topology
+Only cool if it's online! Deploy a web app with nginx and uWSGI. This is most complicated way, so after going to heroku would be dead easy
+It can be daunting, but you have the setup scripts to help you
